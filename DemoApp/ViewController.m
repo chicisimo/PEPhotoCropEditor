@@ -65,14 +65,15 @@
     PECropViewController *controller = [[PECropViewController alloc] init];
     controller.delegate = self;
     controller.image = self.imageView.image;
-    
+    controller.keepingCropAspectRatio = YES;
+    controller.cropAspectRatio = 17/22;
     UIImage *image = self.imageView.image;
     CGFloat width = image.size.width;
     CGFloat height = image.size.height;
     CGFloat length = MIN(width, height);
     controller.imageCropRect = CGRectMake((width - length) / 2,
                                           (height - length) / 2,
-                                          length,
+                                          length *17/22,
                                           length);
     
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
