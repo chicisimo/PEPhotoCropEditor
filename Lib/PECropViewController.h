@@ -14,6 +14,7 @@
 
 @property (nonatomic, weak) id<PECropViewControllerDelegate> delegate;
 @property (nonatomic) UIImage *image;
+@property (nonatomic, readonly) UIImage *croppedImage;
 
 @property (nonatomic) BOOL keepingCropAspectRatio;
 @property (nonatomic) CGFloat cropAspectRatio;

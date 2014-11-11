@@ -196,4 +196,9 @@ static inline NSString *PELocalizedString(NSString *key, NSString *comment)
     [self.cropView resetCropRectAnimated:animated];
 }
 
+- (UIImage *)croppedImage
+{
+    return self.cropView.croppedImage;
+}
+
 @end
