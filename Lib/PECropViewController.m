@@ -12,7 +12,6 @@
 @interface PECropViewController () <UIActionSheetDelegate>
 
 @property (nonatomic) PECropView *cropView;
-@property (nonatomic) UIActionSheet *actionSheet;
 
 - (void)commonInit;
 
@@ -83,12 +82,6 @@ static inline NSString *PELocalizedString(NSString *key, NSString *comment)
     self.navigationController.navigationBar.translucent = NO;
     self.navigationController.toolbar.translucent = NO;
 
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-                                                                                          target:self
-                                                                                          action:@selector(cancel:)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                                                                           target:self
-                                                                                           action:@selector(done:)];
 
     if (!self.toolbarItems) {
         UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
@@ -201,88 +194,6 @@ static inline NSString *PELocalizedString(NSString *key, NSString *comment)
 - (void)resetCropRectAnimated:(BOOL)animated
 {
     [self.cropView resetCropRectAnimated:animated];
-}
-
-#pragma mark -
-
-- (void)cancel:(id)sender
-{
-    if ([self.delegate respondsToSelector:@selector(cropViewControllerDidCancel:)]) {
-        [self.delegate cropViewControllerDidCancel:self];
-    }
-}
-
-- (void)done:(id)sender
-{
-    if ([self.delegate respondsToSelector:@selector(cropViewController:didFinishCroppingImage:transform:cropRect:)]) {
-        [self.delegate cropViewController:self didFinishCroppingImage:self.cropView.croppedImage transform: self.cropView.rotation cropRect: self.cropView.zoomedCropRect];
-    } else if ([self.delegate respondsToSelector:@selector(cropViewController:didFinishCroppingImage:)]) {
-        [self.delegate cropViewController:self didFinishCroppingImage:self.cropView.croppedImage];
-    }
-}
-
-- (void)constrain:(id)sender
-{
-    self.actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                   delegate:self
-                                          cancelButtonTitle:PELocalizedString(@"Cancel", nil)
-                                     destructiveButtonTitle:nil
-                                          otherButtonTitles:
-                        PELocalizedString(@"Original", nil),
-                        PELocalizedString(@"Square", nil),
-                        PELocalizedString(@"3 x 2", nil),
-                        PELocalizedString(@"3 x 5", nil),
-                        PELocalizedString(@"4 x 3", nil),
-                        PELocalizedString(@"4 x 6", nil),
-                        PELocalizedString(@"5 x 7", nil),
-                        PELocalizedString(@"8 x 10", nil),
-                        PELocalizedString(@"16 x 9", nil), nil];
-    [self.actionSheet showFromToolbar:self.navigationController.toolbar];
-}
-
-#pragma mark -
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 0) {
-        CGRect cropRect = self.cropView.cropRect;
-        CGSize size = self.cropView.image.size;
-        CGFloat width = size.width;
-        CGFloat height = size.height;
-        CGFloat ratio;
-        if (width < height) {
-            ratio = width / height;
-            cropRect.size = CGSizeMake(CGRectGetHeight(cropRect) * ratio, CGRectGetHeight(cropRect));
-        } else {
-            ratio = height / width;
-            cropRect.size = CGSizeMake(CGRectGetWidth(cropRect), CGRectGetWidth(cropRect) * ratio);
-        }
-        self.cropView.cropRect = cropRect;
-    } else if (buttonIndex == 1) {
-        self.cropView.cropAspectRatio = 1.0f;
-    } else if (buttonIndex == 2) {
-        self.cropView.cropAspectRatio = 2.0f / 3.0f;
-    } else if (buttonIndex == 3) {
-        self.cropView.cropAspectRatio = 3.0f / 5.0f;
-    } else if (buttonIndex == 4) {
-        CGFloat ratio = 3.0f / 4.0f;
-        CGRect cropRect = self.cropView.cropRect;
-        CGFloat width = CGRectGetWidth(cropRect);
-        cropRect.size = CGSizeMake(width, width * ratio);
-        self.cropView.cropRect = cropRect;
-    } else if (buttonIndex == 5) {
-        self.cropView.cropAspectRatio = 4.0f / 6.0f;
-    } else if (buttonIndex == 6) {
-        self.cropView.cropAspectRatio = 5.0f / 7.0f;
-    } else if (buttonIndex == 7) {
-        self.cropView.cropAspectRatio = 8.0f / 10.0f;
-    } else if (buttonIndex == 8) {
-        CGFloat ratio = 9.0f / 16.0f;
-        CGRect cropRect = self.cropView.cropRect;
-        CGFloat width = CGRectGetWidth(cropRect);
-        cropRect.size = CGSizeMake(width, width * ratio);
-        self.cropView.cropRect = cropRect;
-    }
 }
 
 @end

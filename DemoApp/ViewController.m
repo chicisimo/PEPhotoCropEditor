@@ -67,6 +67,7 @@
     controller.image = self.imageView.image;
     controller.keepingCropAspectRatio = YES;
     controller.cropAspectRatio = 17/22;
+    controller.toolbarHidden = YES;
     UIImage *image = self.imageView.image;
     CGFloat width = image.size.width;
     CGFloat height = image.size.height;
