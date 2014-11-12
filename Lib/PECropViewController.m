@@ -134,7 +134,7 @@ static inline NSString *PELocalizedString(NSString *key, NSString *comment)
 {
     if (![self embeedInNavigationAndCanGoBack]) return;
     
-    UIImage *backButtonImage = [UIImage imageNamed:@"ButtonBack"];
+    UIImage *backButtonImage = [UIImage imageNamed:@"PEPhotoCropEditor.bundle/ButtonBack"];
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     CGRect frame = {CGPointZero, backButtonImage.size};
     backButton.frame = frame;
