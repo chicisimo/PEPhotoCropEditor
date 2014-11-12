@@ -2,9 +2,9 @@
   Localizable.strings
   PEPhotoCropEditor
 
-  Created by kishikawa katsumi on 2013/06/02.
+  Created by kishikawa katsumi on 2013/06/03.
   Copyright (c) 2013 kishikawa katsumi. All rights reserved.
 */
 
-"NEXT" = "NEXT";
-"TITLE" = "MOVE AND SCALE";
+"NEXT" = "SIGUIENTE";
+"TITLE" = "MUEVE Y ESCALA";

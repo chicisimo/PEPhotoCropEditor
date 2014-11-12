@@ -8,12 +8,11 @@
 
 #import "PECropViewController.h"
 #import "PECropView.h"
+#import "UIViewController+NavigationButtons.h"
 
-@interface PECropViewController () <UIActionSheetDelegate>
+@interface PECropViewController ()
 
 @property (nonatomic) PECropView *cropView;
-
-- (void)commonInit;
 
 @end
 
@@ -47,22 +46,19 @@ static inline NSString *PELocalizedString(NSString *key, NSString *comment)
     return self;
 }
 
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    
-    if (self) {
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
         [self commonInit];
     }
     
     return self;
 }
 
-- (void)commonInit {
-    self.rotationEnabled = YES;
+- (void)commonInit
+{
+    self.rotationEnabled = NO;
 }
-
-#pragma mark -
 
 - (void)loadView
 {
@@ -79,24 +75,9 @@ static inline NSString *PELocalizedString(NSString *key, NSString *comment)
 {
     [super viewDidLoad];
     
-    self.navigationController.navigationBar.translucent = NO;
-    self.navigationController.toolbar.translucent = NO;
-
-
-    if (!self.toolbarItems) {
-        UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                                                                       target:nil
-                                                                                       action:nil];
-        UIBarButtonItem *constrainButton = [[UIBarButtonItem alloc] initWithTitle:PELocalizedString(@"Constrain", nil)
-                                                                            style:UIBarButtonItemStyleBordered
-                                                                           target:self
-                                                                           action:@selector(constrain:)];
-        self.toolbarItems = @[flexibleSpace, constrainButton, flexibleSpace];
-    }
-    self.navigationController.toolbarHidden = self.toolbarHidden;
+    [self setupNavigation];
     
     self.cropView.image = self.image;
-    
     self.cropView.rotationGestureRecognizer.enabled = _rotationEnabled;
 }
 
@@ -123,6 +104,21 @@ static inline NSString *PELocalizedString(NSString *key, NSString *comment)
 }
 
 #pragma mark -
+
+- (void)setupNavigation
+{
+    self.navigationController.navigationBarHidden = NO;
+    self.navigationController.navigationBar.translucent = NO;
+    self.navigationItem.title = PELocalizedString(@"TITLE", @"");
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    [self customizeBackButton];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[self barButtonItemWithTitle:@"NEXT"]];
+}
+
+- (void)popViewController:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 - (void)setImage:(UIImage *)image
 {
