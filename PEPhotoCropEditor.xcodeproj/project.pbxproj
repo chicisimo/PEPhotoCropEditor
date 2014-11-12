@@ -27,7 +27,6 @@
 		14BB4F0C174BD7B100C75F78 /* PECropViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BB4F0B174BD7B100C75F78 /* PECropViewController.m */; };
 		14BB4F11174BD7CC00C75F78 /* PECropRectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BB4F0E174BD7CA00C75F78 /* PECropRectView.m */; };
 		14BB4F12174BD7CC00C75F78 /* PEResizeControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BB4F10174BD7CB00C75F78 /* PEResizeControl.m */; };
-		49D2598D1A13518A00A69231 /* UIViewController+NavigationButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D2598C1A13518A00A69231 /* UIViewController+NavigationButtons.m */; };
 		E576407617A7889200111967 /* UIImage+PECrop.m in Sources */ = {isa = PBXBuildFile; fileRef = E576407417A7889200111967 /* UIImage+PECrop.m */; };
 /* End PBXBuildFile section */
 
@@ -62,8 +61,6 @@
 		14BB4F0E174BD7CA00C75F78 /* PECropRectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PECropRectView.m; path = Lib/PECropRectView.m; sourceTree = SOURCE_ROOT; };
 		14BB4F0F174BD7CB00C75F78 /* PEResizeControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PEResizeControl.h; path = Lib/PEResizeControl.h; sourceTree = SOURCE_ROOT; };
 		14BB4F10174BD7CB00C75F78 /* PEResizeControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PEResizeControl.m; path = Lib/PEResizeControl.m; sourceTree = SOURCE_ROOT; };
-		49D2598B1A13518A00A69231 /* UIViewController+NavigationButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+NavigationButtons.h"; sourceTree = SOURCE_ROOT; };
-		49D2598C1A13518A00A69231 /* UIViewController+NavigationButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+NavigationButtons.m"; sourceTree = SOURCE_ROOT; };
 		49D2598E1A13520000A69231 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E576407417A7889200111967 /* UIImage+PECrop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+PECrop.m"; path = "Lib/UIImage+PECrop.m"; sourceTree = SOURCE_ROOT; };
 		E576407517A7889200111967 /* UIImage+PECrop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+PECrop.h"; path = "Lib/UIImage+PECrop.h"; sourceTree = SOURCE_ROOT; };
@@ -173,8 +170,6 @@
 		14BB4F06174BD79000C75F78 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				49D2598B1A13518A00A69231 /* UIViewController+NavigationButtons.h */,
-				49D2598C1A13518A00A69231 /* UIViewController+NavigationButtons.m */,
 				14BB4F0A174BD7B100C75F78 /* PECropViewController.h */,
 				14BB4F0B174BD7B100C75F78 /* PECropViewController.m */,
 				14BB4F07174BD79E00C75F78 /* PECropView.h */,
@@ -263,7 +258,6 @@
 			files = (
 				14BB4ECE174BC59500C75F78 /* main.m in Sources */,
 				14BB4EDE174BC5D300C75F78 /* AppDelegate.m in Sources */,
-				49D2598D1A13518A00A69231 /* UIViewController+NavigationButtons.m in Sources */,
 				14BB4EDF174BC5D300C75F78 /* ViewController.m in Sources */,
 				14BB4F09174BD79E00C75F78 /* PECropView.m in Sources */,
 				14BB4F0C174BD7B100C75F78 /* PECropViewController.m in Sources */,
