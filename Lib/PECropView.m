@@ -79,10 +79,6 @@ static const CGFloat MarginLeft = 20.0f;
     _rotationGestureRecognizer = rotationGestureRecognizer;
     [self.scrollView addGestureRecognizer:rotationGestureRecognizer];
     
-    self.cropRectView = [[PECropRectView alloc] init];
-    self.cropRectView.delegate = self;
-    [self addSubview:self.cropRectView];
-    
     self.topOverlayView = [[UIView alloc] init];
     self.topOverlayView.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.4f];
     [self addSubview:self.topOverlayView];
@@ -98,6 +94,10 @@ static const CGFloat MarginLeft = 20.0f;
     self.bottomOverlayView = [[UIView alloc] init];
     self.bottomOverlayView.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.4f];
     [self addSubview:self.bottomOverlayView];
+    
+    self.cropRectView = [[PECropRectView alloc] init];
+    self.cropRectView.delegate = self;
+    [self addSubview:self.cropRectView];
 }
 
 #pragma mark -
