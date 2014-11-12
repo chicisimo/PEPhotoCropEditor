@@ -30,15 +30,9 @@
     return bundle;
 }
 
-static inline NSString *PELocalizedString(NSString *key, NSString *comment)
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
-    return [[PECropViewController bundle] localizedStringForKey:key value:nil table:@"Localizable"];
-}
-
-- (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
-    
-    if (self) {
+    if (self = [super initWithCoder:aDecoder]) {
         [self commonInit];
     }
     
@@ -74,8 +68,6 @@ static inline NSString *PELocalizedString(NSString *key, NSString *comment)
 {
     [super viewDidLoad];
     
-    [self setupNavigation];
-    
     self.cropView.image = self.image;
     self.cropView.rotationGestureRecognizer.enabled = _rotationEnabled;
 }
@@ -100,59 +92,6 @@ static inline NSString *PELocalizedString(NSString *key, NSString *comment)
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
     return YES;
-}
-
-#pragma mark -
-
-- (void)setupNavigation
-{
-    self.navigationController.navigationBarHidden = NO;
-    self.navigationController.navigationBar.translucent = NO;
-    self.navigationItem.title = PELocalizedString(@"TITLE", @"");
-    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
-    [self customizeBackButton];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[self barButtonItemWithTitle:@"NEXT"]];
-}
-
-- (UIButton *)barButtonItemWithTitle:(NSString *)title
-{
-    UIButton *buttonNext = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonNext.frame = CGRectMake(0, 0, 60, 30);
-    buttonNext.backgroundColor = [UIColor colorWithRed:229.0/255.0 green:229.0/255.0 blue:229.0/255.0 alpha:1];
-    buttonNext.layer.cornerRadius = 3;
-    buttonNext.layer.borderColor = [UIColor colorWithRed:229.0/255.0 green:229.0/255.0 blue:229.0/255.0 alpha:1].CGColor;
-    // using NSSelectorFromString to avoid compiler warnings as this is implemented by the view controller calling this method
-    [buttonNext addTarget:self action:NSSelectorFromString(@"barButtonTapped") forControlEvents:UIControlEventTouchUpInside];
-    [buttonNext setTitle:title forState:UIControlStateNormal];
-    [buttonNext setTitleColor:[UIColor colorWithRed:125.0/255.0 green:125.0/255.0 blue:125.0/255.0 alpha:1] forState:UIControlStateNormal];
-    buttonNext.titleLabel.font = [UIFont fontWithName:@"Avenir-Medium" size:10];
-    
-    return buttonNext;
-}
-
-- (void)customizeBackButton
-{
-    if (![self embeedInNavigationAndCanGoBack]) return;
-    
-    UIImage *backButtonImage = [UIImage imageNamed:@"PEPhotoCropEditor.bundle/ButtonBack"];
-    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    CGRect frame = {CGPointZero, backButtonImage.size};
-    backButton.frame = frame;
-    [backButton setImage:backButtonImage forState:UIControlStateNormal];
-    [backButton addTarget:self action:NSSelectorFromString(@"popViewController:") forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *backBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    self.navigationItem.leftBarButtonItem = backBarButtonItem;
-    self.navigationController.interactivePopGestureRecognizer.delegate = (id<UIGestureRecognizerDelegate>)self;
-}
-
-- (BOOL)embeedInNavigationAndCanGoBack
-{
-    return (self.navigationController && [self.navigationController.viewControllers indexOfObject:self] > 0);
-}
-
-- (void)popViewController:(id)sender
-{
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)setImage:(UIImage *)image
