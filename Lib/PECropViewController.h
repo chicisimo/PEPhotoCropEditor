@@ -22,6 +22,7 @@
 @property (nonatomic, assign, getter = isRotationEnabled) BOOL rotationEnabled;
 @property (nonatomic, readonly) CGAffineTransform rotationTransform;
 @property (nonatomic, readonly) CGRect zoomedCropRect;
+@property (nonatomic) BOOL canResizeCropArea;
 
 - (void)resetCropRect;
 - (void)resetCropRectAnimated:(BOOL)animated;

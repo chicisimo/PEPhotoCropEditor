@@ -249,6 +249,12 @@ static const CGFloat MarginLeft = 20.0f;
     [self setCropAspectRatio:aspectRatio andCenter:YES];
 }
 
+- (void)setCanResizeCropArea:(BOOL)canResizeCropArea
+{
+    _canResizeCropArea = canResizeCropArea;
+    self.cropRectView.canResizeCropArea = canResizeCropArea;
+}
+
 - (CGFloat)cropAspectRatio
 {
     CGRect cropRect = self.scrollView.frame;

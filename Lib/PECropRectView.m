@@ -82,6 +82,8 @@
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
 {
+    if (!self.canResizeCropArea) return nil;
+
     NSArray *subviews = self.subviews;
     for (UIView *subview in subviews) {
         if ([subview isKindOfClass:[PEResizeControl class]]) {

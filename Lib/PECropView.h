@@ -17,16 +17,13 @@
 @property (nonatomic, readonly) CGRect zoomedCropRect;
 @property (nonatomic, readonly) CGAffineTransform rotation;
 @property (nonatomic, readonly) BOOL userHasModifiedCropArea;
-
 @property (nonatomic) BOOL keepingCropAspectRatio;
 @property (nonatomic) CGFloat cropAspectRatio;
-
 @property (nonatomic) CGRect cropRect;
 @property (nonatomic) CGRect imageCropRect;
-
 @property (nonatomic) CGFloat rotationAngle;
-
 @property (nonatomic, weak, readonly) UIRotationGestureRecognizer *rotationGestureRecognizer;
+@property (nonatomic) BOOL canResizeCropArea;
 
 - (void)resetCropRect;
 - (void)resetCropRectAnimated:(BOOL)animated;

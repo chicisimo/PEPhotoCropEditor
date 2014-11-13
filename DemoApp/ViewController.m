@@ -62,19 +62,20 @@
 
 - (IBAction)openEditor:(id)sender
 {
+    CGFloat aspectRatio = 17.0/22.0;
     PECropViewController *controller = [[PECropViewController alloc] init];
     controller.delegate = self;
     controller.image = self.imageView.image;
     controller.keepingCropAspectRatio = YES;
-    controller.cropAspectRatio = 17/22;
+    controller.cropAspectRatio = aspectRatio;
     UIImage *image = self.imageView.image;
-    CGFloat width = image.size.width;
-    CGFloat height = image.size.height;
-    CGFloat length = MIN(width, height);
-    controller.imageCropRect = CGRectMake((width - length) / 2,
-                                          (height - length) / 2,
-                                          length *17/22,
-                                          length);
+//    CGFloat width = image.size.width;
+//    CGFloat height = image.size.height;
+//    CGFloat length = MIN(width, height);
+//    controller.imageCropRect = CGRectMake(0,
+//                                          0 ,
+//                                          width,
+//                                          height);
     
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
     

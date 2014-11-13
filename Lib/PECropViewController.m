@@ -146,6 +146,12 @@
     self.cropView.rotationGestureRecognizer.enabled = _rotationEnabled;
 }
 
+- (void)setCanResizeCropArea:(BOOL)canResizeCropArea
+{
+    _canResizeCropArea = canResizeCropArea;
+    self.cropView.canResizeCropArea = canResizeCropArea;
+}
+
 - (CGAffineTransform)rotationTransform
 {
     return self.cropView.rotation;
