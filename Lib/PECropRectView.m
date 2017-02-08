@@ -99,7 +99,7 @@
     CGFloat height = CGRectGetHeight(self.bounds);
     
     for (NSInteger i = 0; i < 3; i++) {
-        CGFloat borderPadding = 2.0f;
+        CGFloat borderPadding = 0.0f;
         
         if (self.showsGridMinor) {
             for (NSInteger j = 1; j < 3; j++) {
