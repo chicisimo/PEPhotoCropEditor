@@ -18,18 +18,6 @@
 @implementation PECropViewController
 @synthesize rotationEnabled = _rotationEnabled;
 
-+ (NSBundle *)bundle
-{
-    static NSBundle *bundle = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSURL *bundleURL = [[NSBundle mainBundle] URLForResource:@"PEPhotoCropEditor" withExtension:@"bundle"];
-        bundle = [[NSBundle alloc] initWithURL:bundleURL];
-    });
-    
-    return bundle;
-}
-
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
     if (self = [super initWithCoder:aDecoder]) {
@@ -57,7 +45,7 @@
 {
     UIView *contentView = [[UIView alloc] init];
     contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    contentView.backgroundColor = [UIColor blackColor];
+    contentView.backgroundColor = [UIColor whiteColor];
     self.view = contentView;
     
     self.cropView = [[PECropView alloc] initWithFrame:contentView.bounds];

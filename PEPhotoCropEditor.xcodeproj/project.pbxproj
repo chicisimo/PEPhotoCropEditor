@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		14707AE7175B99D900A58D40 /* PEPhotoCropEditor.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 14707AE6175B99D800A58D40 /* PEPhotoCropEditor.bundle */; };
 		14707AEA175B9B6E00A58D40 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 14707AEC175B9B6E00A58D40 /* Localizable.strings */; };
 		14BB4E8A174BC39000C75F78 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14BB4E89174BC39000C75F78 /* UIKit.framework */; };
 		14BB4E8C174BC39000C75F78 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14BB4E8B174BC39000C75F78 /* Foundation.framework */; };
@@ -31,7 +30,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		14707AE6175B99D800A58D40 /* PEPhotoCropEditor.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = PEPhotoCropEditor.bundle; path = Resources/PEPhotoCropEditor.bundle; sourceTree = SOURCE_ROOT; };
 		14707AEB175B9B6E00A58D40 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		14707AED175B9B7000A58D40 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		14BB4E86174BC39000C75F78 /* PEPhotoCropEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PEPhotoCropEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -137,19 +135,10 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		14BB4EAF174BC3DD00C75F78 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				14707AE6175B99D800A58D40 /* PEPhotoCropEditor.bundle */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
 		14BB4EB4174BC45A00C75F78 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
 				14BB4F06174BD79000C75F78 /* Sources */,
-				14BB4EAF174BC3DD00C75F78 /* Resources */,
 			);
 			name = Lib;
 			sourceTree = "<group>";
@@ -244,7 +233,6 @@
 				14BB4EE7174BD70200C75F78 /* InfoPlist.strings in Resources */,
 				14BB4EEC174BD70E00C75F78 /* MainStoryboard_iPad.storyboard in Resources */,
 				14BB4EED174BD70E00C75F78 /* MainStoryboard_iPhone.storyboard in Resources */,
-				14707AE7175B99D900A58D40 /* PEPhotoCropEditor.bundle in Resources */,
 				14707AEA175B9B6E00A58D40 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

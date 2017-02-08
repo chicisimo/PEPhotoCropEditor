@@ -10,11 +10,6 @@
 #import "PECropRectView.h"
 #import "UIImage+PECrop.h"
 
-static const CGFloat MarginTop = 37.0f;
-//static const CGFloat MarginBottom = MarginTop;
-static const CGFloat MarginLeft = 20.0f;
-//static const CGFloat MarginRight = MarginLeft;
-
 @interface PECropView () <UIScrollViewDelegate, UIGestureRecognizerDelegate, PECropRectViewDelegate>
 
 @property (nonatomic) UIScrollView *scrollView;
@@ -80,19 +75,19 @@ static const CGFloat MarginLeft = 20.0f;
     [self.scrollView addGestureRecognizer:rotationGestureRecognizer];
     
     self.topOverlayView = [[UIView alloc] init];
-    self.topOverlayView.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.4f];
+    self.topOverlayView.backgroundColor = [UIColor whiteColor];
     [self addSubview:self.topOverlayView];
     
     self.leftOverlayView = [[UIView alloc] init];
-    self.leftOverlayView.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.4f];
+    self.leftOverlayView.backgroundColor = [UIColor whiteColor];
     [self addSubview:self.leftOverlayView];
     
     self.rightOverlayView = [[UIView alloc] init];
-    self.rightOverlayView.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.4f];
+    self.rightOverlayView.backgroundColor = [UIColor whiteColor];
     [self addSubview:self.rightOverlayView];
     
     self.bottomOverlayView = [[UIView alloc] init];
-    self.bottomOverlayView.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.4f];
+    self.bottomOverlayView.backgroundColor = [UIColor whiteColor];
     [self addSubview:self.bottomOverlayView];
     
     self.cropRectView = [[PECropRectView alloc] init];
@@ -131,16 +126,16 @@ static const CGFloat MarginLeft = 20.0f;
     
     UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
     if (UIInterfaceOrientationIsPortrait(interfaceOrientation)) {
-        self.editingRect = CGRectInset(self.bounds, MarginLeft, MarginTop);
+        self.editingRect = CGRectInset(self.bounds, 0, 0);
     } else {
-        self.editingRect = CGRectInset(self.bounds, MarginLeft, MarginLeft);
+        self.editingRect = CGRectInset(self.bounds, 0, 0);
     }
     
     if (!self.imageView) {
         if (UIInterfaceOrientationIsPortrait(interfaceOrientation)) {
-            self.insetRect = CGRectInset(self.bounds, MarginLeft, MarginTop);
+            self.insetRect = CGRectInset(self.bounds, 0, 0);
         } else {
-            self.insetRect = CGRectInset(self.bounds, MarginLeft, MarginLeft);
+            self.insetRect = CGRectInset(self.bounds, 0, 0);
         }
         
         [self setupImageView];
