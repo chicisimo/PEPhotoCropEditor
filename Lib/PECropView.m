@@ -64,7 +64,7 @@
     self.scrollView.maximumZoomScale = 20.0f;
     self.scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView.showsVerticalScrollIndicator = NO;
-    self.scrollView.bounces = NO;
+    self.scrollView.bounces = YES;
     self.scrollView.bouncesZoom = NO;
     self.scrollView.clipsToBounds = NO;
     [self addSubview:self.scrollView];
@@ -517,6 +517,11 @@
 {
     CGPoint contentOffset = scrollView.contentOffset;
     *targetContentOffset = contentOffset;
+}
+
+- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale
+{
+    [scrollView setZoomScale:MAX(2, scrollView.zoomScale) animated:YES];
 }
 
 @end
