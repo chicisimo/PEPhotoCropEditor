@@ -13,7 +13,6 @@
 @interface PECropView () <UIScrollViewDelegate, UIGestureRecognizerDelegate, PECropRectViewDelegate>
 
 @property (nonatomic) UIScrollView *scrollView;
-@property (nonatomic) UIView *zoomingView;
 @property (nonatomic) UIImageView *imageView;
 
 @property (nonatomic) PECropRectView *cropRectView;
@@ -57,6 +56,11 @@
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.backgroundColor = [UIColor whiteColor];
     
+    // this is crazy but adding a dummy view as a first subview fixes the wrong offset.y (-64) when scrolling down. ¯\_(ツ)_/¯
+    UIView *dummyView = [[UIView alloc] initWithFrame:self.bounds];
+    dummyView.backgroundColor = [UIColor whiteColor];
+    [self addSubview:dummyView];
+    
     self.scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
     self.scrollView.delegate = self;
     self.scrollView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
@@ -65,6 +69,8 @@
     self.scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView.showsVerticalScrollIndicator = NO;
     self.scrollView.bounces = YES;
+    self.scrollView.alwaysBounceVertical = YES;
+    self.scrollView.alwaysBounceHorizontal = YES;
     self.scrollView.bouncesZoom = NO;
     self.scrollView.clipsToBounds = NO;
     [self addSubview:self.scrollView];
@@ -107,9 +113,9 @@
     if (hitView) {
         return hitView;
     }
-    CGPoint locationInImageView = [self convertPoint:point toView:self.zoomingView];
+    CGPoint locationInImageView = [self convertPoint:point toView:self.imageView];
     CGPoint zoomedPoint = CGPointMake(locationInImageView.x * self.scrollView.zoomScale, locationInImageView.y * self.scrollView.zoomScale);
-    if (CGRectContainsPoint(self.zoomingView.frame, zoomedPoint)) {
+    if (CGRectContainsPoint(self.imageView.frame, zoomedPoint)) {
         return self.scrollView;
     }
     
@@ -185,15 +191,11 @@
     self.scrollView.frame = cropRect;
     self.scrollView.contentSize = cropRect.size;
     
-    self.zoomingView = [[UIView alloc] initWithFrame:self.scrollView.bounds];
-    self.zoomingView.backgroundColor = [UIColor clearColor];
-    [self.scrollView addSubview:self.zoomingView];
-    
-    self.imageView = [[UIImageView alloc] initWithFrame:self.zoomingView.bounds];
+    self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(cropRect), CGRectGetHeight(cropRect))];
     self.imageView.backgroundColor = [UIColor clearColor];
     self.imageView.contentMode = UIViewContentModeScaleAspectFit;
     self.imageView.image = self.image;
-    [self.zoomingView addSubview:self.imageView];
+    [self.scrollView addSubview:self.imageView];
 }
 
 #pragma mark -
@@ -204,9 +206,6 @@
     
     [self.imageView removeFromSuperview];
     self.imageView = nil;
-    
-    [self.zoomingView removeFromSuperview];
-    self.zoomingView = nil;
     
     [self setNeedsLayout];
 }
@@ -326,7 +325,7 @@
 
 - (CGRect)zoomedCropRect
 {
-    CGRect cropRect = [self convertRect:self.scrollView.frame toView:self.zoomingView];
+    CGRect cropRect = [self convertRect:self.scrollView.frame toView:self.imageView];
     CGSize size = self.image.size;
     
     CGFloat ratio = 1.0f;
@@ -383,25 +382,25 @@
     CGRect cropRect = cropRectView.frame;
     
     CGRect rect = [self convertRect:cropRect toView:self.scrollView];
-    if (CGRectGetMinX(rect) < CGRectGetMinX(self.zoomingView.frame)) {
-        cropRect.origin.x = CGRectGetMinX([self.scrollView convertRect:self.zoomingView.frame toView:self]);
+    if (CGRectGetMinX(rect) < CGRectGetMinX(self.imageView.frame)) {
+        cropRect.origin.x = CGRectGetMinX([self.scrollView convertRect:self.imageView.frame toView:self]);
         CGFloat cappedWidth = CGRectGetMaxX(rect);
         cropRect.size = CGSizeMake(cappedWidth,
                                    !self.keepingCropAspectRatio ? cropRect.size.height : cropRect.size.height * (cappedWidth/cropRect.size.width));
     }
-    if (CGRectGetMinY(rect) < CGRectGetMinY(self.zoomingView.frame)) {
-        cropRect.origin.y = CGRectGetMinY([self.scrollView convertRect:self.zoomingView.frame toView:self]);
+    if (CGRectGetMinY(rect) < CGRectGetMinY(self.imageView.frame)) {
+        cropRect.origin.y = CGRectGetMinY([self.scrollView convertRect:self.imageView.frame toView:self]);
         CGFloat cappedHeight =  CGRectGetMaxY(rect);
         cropRect.size = CGSizeMake(!self.keepingCropAspectRatio ? cropRect.size.width : cropRect.size.width * (cappedHeight / cropRect.size.height),
                                    cappedHeight);
     }
-    if (CGRectGetMaxX(rect) > CGRectGetMaxX(self.zoomingView.frame)) {
-        CGFloat cappedWidth = CGRectGetMaxX([self.scrollView convertRect:self.zoomingView.frame toView:self]) - CGRectGetMinX(cropRect);
+    if (CGRectGetMaxX(rect) > CGRectGetMaxX(self.imageView.frame)) {
+        CGFloat cappedWidth = CGRectGetMaxX([self.scrollView convertRect:self.imageView.frame toView:self]) - CGRectGetMinX(cropRect);
         cropRect.size = CGSizeMake(cappedWidth,
                                    !self.keepingCropAspectRatio ? cropRect.size.height : cropRect.size.height * (cappedWidth/cropRect.size.width));
     }
-    if (CGRectGetMaxY(rect) > CGRectGetMaxY(self.zoomingView.frame)) {
-        CGFloat cappedHeight =  CGRectGetMaxY([self.scrollView convertRect:self.zoomingView.frame toView:self]) - CGRectGetMinY(cropRect);
+    if (CGRectGetMaxY(rect) > CGRectGetMaxY(self.imageView.frame)) {
+        CGFloat cappedHeight =  CGRectGetMaxY([self.scrollView convertRect:self.imageView.frame toView:self]) - CGRectGetMinY(cropRect);
         cropRect.size = CGSizeMake(!self.keepingCropAspectRatio ? cropRect.size.width : cropRect.size.width * (cappedHeight / cropRect.size.height),
                                    cappedHeight);
     }
@@ -461,7 +460,7 @@
                                  scaledWidth,
                                  scaledHeight);
     
-    CGRect zoomRect = [self convertRect:toRect toView:self.zoomingView];
+    CGRect zoomRect = [self convertRect:toRect toView:self.imageView];
     zoomRect.size.width = CGRectGetWidth(cropRect) / (self.scrollView.zoomScale * scale);
     zoomRect.size.height = CGRectGetHeight(cropRect) / (self.scrollView.zoomScale * scale);
     
@@ -510,7 +509,7 @@
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
-    return self.zoomingView;
+    return self.imageView;
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
