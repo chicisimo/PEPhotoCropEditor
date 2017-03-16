@@ -528,7 +528,9 @@
 
 - (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale
 {
-    [scrollView setZoomScale:MAX(2, scrollView.zoomScale) animated:YES];
+    CGFloat minZoom = MAX(self.bounds.size.width / self.imageView.image.size.width,
+                          self.bounds.size.height / self.imageView.image.size.height);
+    [scrollView setZoomScale:MAX(minZoom, scrollView.zoomScale) animated:YES];
 }
 
 @end
