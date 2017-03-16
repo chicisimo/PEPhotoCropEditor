@@ -24,6 +24,7 @@
 
 @property (nonatomic) CGRect insetRect;
 @property (nonatomic) CGRect editingRect;
+@property (nonatomic) CGFloat minScale;
 
 @property (nonatomic, getter = isResizing) BOOL resizing;
 @property (nonatomic) UIInterfaceOrientation interfaceOrientation;
@@ -460,7 +461,7 @@
     CGFloat height = CGRectGetHeight(toRect);
     
     CGFloat scale = MIN(CGRectGetWidth(self.editingRect) / width, CGRectGetHeight(self.editingRect) / height);
-    
+    self.minScale = scale;
     CGFloat scaledWidth = width * scale;
     CGFloat scaledHeight = height * scale;
     CGRect cropRect = CGRectMake((CGRectGetWidth(self.bounds) - scaledWidth) / 2,
@@ -528,9 +529,7 @@
 
 - (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale
 {
-    CGFloat minZoom = MAX(self.bounds.size.width / self.imageView.image.size.width,
-                          self.bounds.size.height / self.imageView.image.size.height);
-    [scrollView setZoomScale:MAX(minZoom, scrollView.zoomScale) animated:YES];
+    [scrollView setZoomScale:MAX(self.minScale, scrollView.zoomScale) animated:YES];
 }
 
 @end
