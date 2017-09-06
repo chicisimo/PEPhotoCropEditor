@@ -132,7 +132,7 @@
         return;
     }
     
-    UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+    UIInterfaceOrientation interfaceOrientation = UIInterfaceOrientationPortrait;
     if (UIInterfaceOrientationIsPortrait(interfaceOrientation)) {
         self.editingRect = CGRectInset(self.bounds, 0, 0);
     } else {
@@ -338,7 +338,7 @@
     CGSize size = self.image.size;
     
     CGFloat ratio = 1.0f;
-    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    UIInterfaceOrientation orientation = UIInterfaceOrientationPortrait;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad || UIInterfaceOrientationIsPortrait(orientation)) {
         ratio = CGRectGetWidth(AVMakeRectWithAspectRatioInsideRect(self.image.size, self.insetRect)) / size.width;
     } else {
