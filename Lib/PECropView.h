@@ -24,6 +24,7 @@
 @property (nonatomic) CGFloat rotationAngle;
 @property (nonatomic, weak, readonly) UIRotationGestureRecognizer *rotationGestureRecognizer;
 @property (nonatomic) BOOL canResizeCropArea;
+@property (nonatomic) BOOL hideOverlays;
 
 - (void)resetCropRect;
 - (void)resetCropRectAnimated:(BOOL)animated;

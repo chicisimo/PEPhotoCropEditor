@@ -103,6 +103,19 @@
     [self addSubview:self.cropRectView];
 }
 
+- (void)setHideOverlays:(BOOL)hideOverlays
+{
+    if (!hideOverlays)
+        return;
+    
+    self.cropRectView.showsGridMajor = NO;
+    [self.topOverlayView removeFromSuperview];
+    [self.leftOverlayView removeFromSuperview];
+    [self.rightOverlayView removeFromSuperview];
+    [self.bottomOverlayView removeFromSuperview];
+    _hideOverlays = hideOverlays;
+}
+
 #pragma mark -
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
@@ -168,6 +181,9 @@
 
 - (void)layoutOverlayViewsWithCropRect:(CGRect)cropRect
 {
+    if (self.hideOverlays)
+        return;
+    
     self.topOverlayView.frame = CGRectMake(0.0f,
                                            0.0f,
                                            CGRectGetWidth(self.bounds),
