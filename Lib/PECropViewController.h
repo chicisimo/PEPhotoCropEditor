@@ -23,6 +23,7 @@
 @property (nonatomic, readonly) CGAffineTransform rotationTransform;
 @property (nonatomic, readonly) CGRect zoomedCropRect;
 @property (nonatomic) BOOL canResizeCropArea;
+@property (nonatomic) BOOL hideOverlays;
 
 - (void)resetCropRect;
 - (void)resetCropRectAnimated:(BOOL)animated;

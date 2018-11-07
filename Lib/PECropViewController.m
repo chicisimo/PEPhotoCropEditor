@@ -140,6 +140,12 @@
     self.cropView.canResizeCropArea = canResizeCropArea;
 }
 
+- (void)setHideOverlays:(BOOL)hideOverlays
+{
+    _hideOverlays = hideOverlays;
+    self.cropView.hideOverlays = hideOverlays;
+}
+
 - (CGAffineTransform)rotationTransform
 {
     return self.cropView.rotation;
